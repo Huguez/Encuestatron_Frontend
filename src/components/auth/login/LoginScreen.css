@@ -1,0 +1,32 @@
+
+.loginFace{
+    margin-top: 3%;
+    align-items: center;
+}
+
+.wrap{
+    width: 35%;
+    margin: auto;
+}
+
+.imgcontainer{
+    text-align: center;
+    margin: 40px 1px 30px 1px;
+}
+
+.avatar{
+    width: 20%;
+}
+
+
+@media screen and (max-width: 800px ) {
+    .wrap{
+        width: 75%;
+    }
+}
+
+@media screen and (max-width: 400px ) {
+    .wrap{
+        width: 100%;
+    }
+}
