@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import { Link } from 'react-router-dom'
 import '../login/LoginScreen.css'
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale, setDefaultLocale } from  "react-datepicker";
 import es from 'date-fns/locale/es';
@@ -31,11 +30,7 @@ export const RegisterScreen = () => {
                         <form>
                             <input className="form-control m-2" type="text"  placeholder="name" name="name"  />
                             
-                            <input className="form-control m-2" type="text"  placeholder="last name" name="lastname"  />
-                            
                             <input className="form-control m-2" type="email"  placeholder="e-mail" name="email"  />
-
-                            <DatePicker className="form-control m-2" selected={startDate} onChange={ ( date ) => setStartDate( date ) } placeholderText={ 'birthday' } />
 
                             <input className="form-control m-2" type="password"  placeholder="password" name="password"  />
                        
