@@ -1,6 +1,10 @@
 
 export const types = {
-    login: '[auth] Login',
-    register: '[auth] Register',
-    logout: '[auth] Logout',
+
+    authLogin:          '[auth] Login',
+    authRegister:       '[auth] Register',
+    authLogout:         '[auth] Logout',
+    authRenovarToken:   '[auth] Renovar Token'
+    
+    
 }

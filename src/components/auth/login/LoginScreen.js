@@ -1,10 +1,29 @@
 import React from "react"
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { useForm } from '../../../hooks/useForm'
+
 import './LoginScreen.css'
+import { startLogin } from "../../../actions/auth"
 
 
 export const LoginScreen = () => {
+
+    const dispatch = useDispatch()
+
+    const [ formValues, handleFormValues ] = useForm( {
+        loginEmail: 'carlos.huguez@gmail.com',
+        loginPassword: '051189'
+    } );
+    const { loginEmail, loginPassword } = formValues
+
     
+    const handleLoginSubmit = ( e ) => {
+        e.preventDefault();
+        
+        dispatch( startLogin( loginEmail, loginPassword ) )
+    }
+
     return (
         <div className="loginFace">
 
@@ -18,15 +37,11 @@ export const LoginScreen = () => {
                     </div>
 
                     <div className="m-3">
-                        <form>
-                            <input className="form-control mb-3" type="email"  placeholder="e-mail" name="email"  />
+                        <form onSubmit={ handleLoginSubmit } >
+                            <input value={ loginEmail } onChange={ handleFormValues } autoComplete="off" className="form-control mb-3" type="email"  placeholder="e-mail" name="loginEmail"  />
 
-                            <input className="form-control mb-3" type="password"  placeholder="password" name="password"  />
-                            
-                            <input onChange={ () =>{} } className="form-check-input mx-2" type="checkbox" checked="checked" name="remember" /> Remember me
-                            
-                            <br/>
-                            
+                            <input value={ loginPassword } onChange={ handleFormValues }  autoComplete="off" className="form-control mb-3" type="password"  placeholder="password" name="loginPassword"  />
+                  
                             <div>
                                 <Link className="btn btn-link" to="/">Forgot password?</Link>
                                 <Link className="btn btn-link" to="/auth/register"> without Account? Register </Link>
@@ -35,7 +50,7 @@ export const LoginScreen = () => {
                             <br/>
 
                             <div className="d-grid gap-2">
-                                <button type="button"  className="btn btn-primary" > Log In </button>
+                                <button type="submit"  className="btn btn-primary" > Log In </button>
                             </div>
 
                         </form>
