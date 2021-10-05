@@ -1,7 +1,11 @@
 import { types } from "../types/types";
 import { fetchSinToken, fetchToken } from "../helpers/fetch";
+import { startLoading, endLoading } from "./ui";
+
+import { startLoadEncuestas }  from './encuesta'
 
 // Asyncronas //////////
+
 export const startLogin = ( email, password ) => {
     return async ( dispatch ) =>{
 
@@ -38,31 +42,40 @@ export const startRegister = ( name, email, password, role = "usuario" ) => {
     }
 }
 
-
 export const startChecking = () => {
     return async ( dispatch ) => {
+        dispatch( startLoading() )
         const resp = await fetchToken( 'v1/session/renew' )
         const body = await resp.json();
         const { uidtkn:token, user } = body;
 
-        if( user ){
+        if( !!user ){
             localStorage.setItem( 'uidtkn', token )
             localStorage.setItem( 'uidtkn-init-date', new Date().getTime() )
-            dispatch( renew( user ) )
+
+            dispatch( endLoading() )
+
+            await dispatch( startLoadEncuestas() )
+            await dispatch( renew( user ) )
+
         }else{
             console.log( "Error: startChecking" )
             console.log( body )
+            dispatch( endLoading() )
         }
     }
 }
 
 export const startLogout = () => {
     return async ( dispatch ) => {
-        
+        await dispatch( startLoading() )
         localStorage.clear();
         dispatch( logout() )
+        await dispatch( endLoading() )
     }
 }
+
+
 
 // Syncronas ///////////
 
@@ -84,4 +97,3 @@ const renew = ( user ) => ( {
 const logout = () => ({
     type: types.authLogout
 } )
-

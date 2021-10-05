@@ -19,6 +19,7 @@ const fetchSinToken = ( url, data, method = 'GET' ) => {
 
 const fetchToken = ( url, data, method = 'GET' ) => {
     // const endpoint = `${}/${}`
+    
     const endpoint = `http://localhost:8000/${ url }`
     
     const uidtkn = `Authorization ${ localStorage.getItem( 'uidtkn' ) || '' }`

@@ -11,6 +11,7 @@ export const authReducer = ( state = initialState , action ) => {
         
         case types.authLogin:
             return {
+                ...state, 
                 ...action.payload,
                 logged: true
             };
@@ -23,12 +24,14 @@ export const authReducer = ( state = initialState , action ) => {
 
         case types.authRegister:
             return {
+                ...state,
                 ...action.payload,
                 logged: true
             };
         
         case types.authRenovarToken:
             return {
+                ...state,
                 ...action.payload,
                 logged: true
             };

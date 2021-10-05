@@ -1,17 +1,21 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Encuesta } from "./Encuesta";
 // import PropTypes from 'prop-types';
+import { startLoadEncuestas } from '../../../actions/encuesta'
 
-export const ListEncuesta = ( props ) => {
 
-    const listAux = [ 1,2,3,4,5 ];
+export const ListEncuesta = () => {
+
+    const { encuestas } = useSelector( state => state.survey );
+    let lista = [...Object.values( encuestas ) ]
 
     return (
         <div className="container">
             <div className="row" >
                 <div className="col" >
                     {
-                        listAux.map( value => ( <Encuesta  key={value} /> ) )
+                       lista.map( ( value ) => ( <Encuesta key={ value.id }  encuesta={ { ...value } } /> ) )
                     }
                 </div>
             </div>
