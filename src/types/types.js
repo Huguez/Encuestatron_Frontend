@@ -1,17 +1,21 @@
 
 export const types = {
 
-    authLogin:        '[auth] Login',
-    authRegister:     '[auth] Register',
-    authLogout:       '[auth] Logout',
-    authRenovarToken: '[auth] Renovar Token',
+    authLogin:          '[auth] Login',
+    authRegister:       '[auth] Register',
+    authLogout:         '[auth] Logout',
+    authRenovarToken:   '[auth] Renovar Token',
+    authFinChecking:    '[auth] Terminar de checar State Login ' ,
     
-    encuestaLoad:     '[encuesta] Cargar Encuestas',
-    encuestaCreate:   '[encuesta] Crear Encuestas',
-    encuestaUpdate:   '[encuesta] Actualizar Encuestas',
-    encuestaDelete:   '[encuesta] Remover Encuestas',
-
-    uiStartLoading:   '[ui] Empezar Carga de Aplicacion' ,
-    uiEndLoading:     '[ui] Terminar Carga de Aplicacion' ,
+    encuestaLoad:       '[encuesta] Cargar Encuestas',
+    encuestaCreate:     '[encuesta] Crear Encuesta',
+    encuestaShow:       '[encuesta] Mostrar Encuesta',
+    encuestaUpdate:     '[encuesta] Actualizar Encuesta',
+    encuestaDelete:     '[encuesta] Eliminar Encuesta',
+    encuestaRemoveShow: '[encuesta] Quitar Encuesta',
+    
+    uiStartLoading:     '[ui] Empezar Carga de Aplicacion' ,
+    uiEndLoading:       '[ui] Terminar Carga de Aplicacion' ,
+    
     
 }

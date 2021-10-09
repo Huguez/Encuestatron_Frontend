@@ -1,8 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Encuesta } from "./Encuesta";
-// import PropTypes from 'prop-types';
-import { startLoadEncuestas } from '../../../actions/encuesta'
+import { ItemEncuesta } from "./ItemEncuesta";
 
 
 export const ListEncuesta = () => {
@@ -15,7 +13,7 @@ export const ListEncuesta = () => {
             <div className="row" >
                 <div className="col" >
                     {
-                       lista.map( ( value ) => ( <Encuesta key={ value.id }  encuesta={ { ...value } } /> ) )
+                       lista.map( ( value, index ) => ( <ItemEncuesta key={ index } encuesta={ { ...value} } /> ) )
                     }
                 </div>
             </div>

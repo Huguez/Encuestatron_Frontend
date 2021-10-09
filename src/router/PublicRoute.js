@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 export const PublicRoute = ({ isAuthenticated, component: Component, ...rest }) => {
     return (
-        <Route { ...rest }
+        <Route exact { ...rest }
             component={ 
                 ( props )=>( !isAuthenticated ? // si esto
                 ( <Component { ...props } />) : // entonces esto

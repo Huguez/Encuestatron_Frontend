@@ -1,21 +1,27 @@
-import React from "react"
-
+import React, { useEffect } from "react"
+import { useDispatch } from "react-redux";
 import { Navbar } from "../ui/Navbar";
-import { ListEncuesta } from "./encuesta/ListEncuesta";
-// import { NuevaEncuesta } from "./encuesta/ListEncuesta";
 import { AddNewEncuesta } from '../ui/AddNewEncuesta'
 
+import { DashboardRouter } from '../../router/DashboardRouter';
+import { startLoadEncuestas } from "../../actions/encuesta";
 
 export const DashboardScreen = ( props ) => {
+
+    const dispatch = useDispatch()
+
+    useEffect( () => {
+        dispatch( startLoadEncuestas() )
+    }, [dispatch] )
+    
 
     return (
         <div>
             <Navbar /> 
-            {/* sidebar */}
-            <main>
+            
+            <main className="container">
                 
-                {/* <DashboardRouter/> */}
-                <ListEncuesta />
+                <DashboardRouter/>
                 
                 <AddNewEncuesta />
             </main>

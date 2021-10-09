@@ -1,30 +1,31 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import PropTypes from 'prop-types';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
+import { Loading } from '../../ui/Loading'
 
-export const Encuesta = ( { titulo, descripcion } ) => {
+import { startShowEncuesta, ClearShowEncuesta } from '../../../actions/encuesta'
+
+export const Encuesta = (  ) => {
+    const { id } = useParams()
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch( startShowEncuesta( id ) )
+        return () => {
+            dispatch( ClearShowEncuesta() )
+        }
+    }, [dispatch, id])
+
+    const { show } = useSelector( state => state.survey )
+    
+    if( !show ){
+        return <Loading />
+    }
 
     return (
-        <div className="m-auto w-50">
-            <div className="card  m-3 "  >
-                <div className="card-body">
-                    <h5 className="card-title">{ titulo }</h5>
-                    <hr/>
-                    <p className="card-text">{ descripcion }.</p>
-                    <Link className="btn btn-primary" to=''>ir a la Encuesta</Link>
-                </div>
-            </div>
+        <div>
+            { show.titulo }
         </div>
     )
 }
 
-
-Encuesta.propTypes = {
-    titulo: PropTypes.string,
-    descripcion: PropTypes.string,
-}
-
-Encuesta.defaultProps = {
-    titulo: 'un titulo',
-    descripcion: 'una descripcion',
-}

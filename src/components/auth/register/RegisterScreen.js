@@ -11,7 +11,7 @@ export const RegisterScreen = () => {
 
     const [ formValues, handleFormValues ] = useForm( {
         registerName: "wawa",
-        registerEmail: '',
+        registerEmail: '@wawa.com',
         registerPassword: '123456',
         registerConfirmPassword: '123456',
         
@@ -24,6 +24,9 @@ export const RegisterScreen = () => {
         dispatch( startRegister( registerName, registerEmail, registerPassword ) )
     }
 
+    // is-invalid,  is-valid 
+    // has-validation
+    
     return (
         <div className="loginFace">
 
