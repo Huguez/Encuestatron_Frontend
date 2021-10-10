@@ -13,9 +13,7 @@ export const types = {
     encuestaUpdate:     '[encuesta] Actualizar Encuesta',
     encuestaDelete:     '[encuesta] Eliminar Encuesta',
     encuestaRemoveShow: '[encuesta] Quitar Encuesta',
-    
-    uiStartLoading:     '[ui] Empezar Carga de Aplicacion' ,
-    uiEndLoading:       '[ui] Terminar Carga de Aplicacion' ,
-    
-    
+
+    uiOpenModal:        '[ui] Abrir Modal ' ,
+    uiCloseModal:       '[ui] Cerrar Modal' ,
 }

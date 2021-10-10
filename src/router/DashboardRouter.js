@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch } from 'react-router-dom'
 
 import { ListEncuesta } from '../components/main/encuesta/ListEncuesta'
 import { Encuesta } from "../components/main/encuesta/Encuesta";
-import { NuevaEncuesta } from '../components/main/encuesta/NuevaEncuesta'
+// import { NuevaEncuesta } from '../components/main/encuesta/NuevaEncuesta'
 import { PrivateRoute } from './PrivateRoute';
 
 export const DashboardRouter = () => {
@@ -19,7 +19,7 @@ export const DashboardRouter = () => {
 
                     <PrivateRoute isAuthenticated={ logged } path='/show/:id/encuesta' component={ Encuesta } />
 
-                    <PrivateRoute isAuthenticated={ logged } path='/create/encuesta' component={ NuevaEncuesta } />
+                    {/* <PrivateRoute isAuthenticated={ logged } path='/create/encuesta' component={ NuevaEncuesta } /> */}
                     
                     <PrivateRoute isAuthenticated={ logged } path='/'  component={ ListEncuesta }  />
 

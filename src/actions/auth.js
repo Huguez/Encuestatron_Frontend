@@ -1,13 +1,10 @@
 import { types } from "../types/types";
 import { fetchSinToken, fetchToken } from "../helpers/fetch";
-import { startLoading, endLoading } from "./ui";
 
 // Asyncronas //////////
 
 export const startLogin = ( email, password ) => {
     return async ( dispatch ) =>{
-
-        dispatch( startLoading() )
 
         const resp = await fetchSinToken( 'v1/session/login', { email, password }, 'POST' );
         const body = await resp.json();
@@ -17,7 +14,6 @@ export const startLogin = ( email, password ) => {
             localStorage.setItem( 'uidtkn', token )
             localStorage.setItem( 'uidtkn-init-date', new Date().getTime() )
 
-            await dispatch( endLoading() )
             dispatch( login( user ) )
         }else{
             console.log("Error: startLogin")
@@ -28,7 +24,6 @@ export const startLogin = ( email, password ) => {
 
 export const startRegister = ( name, email, password, role = "usuario" ) => {
     return async ( dispatch ) => {
-        dispatch( startLoading() )
         const resp = await fetchSinToken( 'v1/session/register', { name, email, password, role }, 'POST' );
         const body = await resp.json();
         const { uidtkn:token, user } = body;
@@ -37,8 +32,6 @@ export const startRegister = ( name, email, password, role = "usuario" ) => {
             localStorage.setItem( 'uidtkn', token )
             localStorage.setItem( 'uidtkn-init-date', new Date().getTime() )
             await dispatch( register( user ) )
-
-            dispatch( endLoading() )
         }else{
             console.log( "Error: startRegister" )
             console.log( body )
@@ -71,10 +64,8 @@ export const startChecking = () => {
 
 export const startLogout = () => {
     return async ( dispatch ) => {
-        await dispatch( startLoading() )
         localStorage.clear();
         dispatch( logout() )
-        await dispatch( endLoading() )
     }
 }
 

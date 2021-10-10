@@ -1,13 +1,12 @@
 import React from 'react'
-import { useHistory } from "react-router-dom";
+import { useDispatch } from 'react-redux'
+import { openModal } from '../../actions/ui'
 
 export const AddNewEncuesta = ( ) => {
-    const history = useHistory();
-
+    const dispatch = useDispatch()
     
     const handleClick = (e) => {
-        history.replace('/create/encuesta/');
-        localStorage.setItem( 'lastRuta', '/create/encuesta/' )
+        dispatch( openModal() )
     }
 
     return (

@@ -1,15 +1,15 @@
 import { types } from "../types/types";
 
-export const startLoading = () => ({
-    type: types.uiStartLoading,
+export const openModal = () => ({
+    type: types.uiOpenModal,
     payload: {
-        loading: true
+        openModal: true
     }
 });
 
-export const endLoading = () => ({
-    type: types.uiEndLoading,
+export const closeModal = () => ({
+    type: types.uiCloseModal,
     payload: {
-        loading: false
+        openModal: false
     }
 });

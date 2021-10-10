@@ -19,7 +19,7 @@ export const ItemEncuesta = ( { encuesta:{ id, titulo, descripcion, activate } }
                     
                     <div className="d-flex justify-content-between">
 
-                        <h5 className="card-title text-truncate" style={ { maxWidth: "150px"} } >
+                        <h5 className="card-title text-truncate" style={ { maxWidth: "380px"} } >
                             { titulo }
                         </h5>
 
@@ -30,7 +30,10 @@ export const ItemEncuesta = ( { encuesta:{ id, titulo, descripcion, activate } }
                     </div>
                 
                     <hr/>
-                    <p className="card-text text-truncate"  style={ { maxWidth: "150px"} } > { descripcion }.</p>
+                    <p className="card-text text-truncate"  style={ { maxWidth: "450px"} } >
+                        { descripcion } .
+                    </p>
+
                     <button type="button" className="btn btn-primary" onClick={ handleClick } >ir a la Encuesta</button>
                 </div>
             </div>
