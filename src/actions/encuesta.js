@@ -3,6 +3,28 @@ import { types } from "../types/types";
 
 /// Asyncronas /////////////////////////
 
+export const startCreateEncuesta = ( titulo, descripcion, opciones, activo = true  ) => {
+    return async ( dispatch, getState ) => {
+        try {
+            const { user:{ id:id_creator } } =  await getState().auth            
+            const data = { titulo, descripcion, opciones, activo, id_creator }
+            const resp = await fetchToken( 'v1/encuesta/', data, 'POST' );
+            const body = await resp.json();
+            
+            if ( body.ok ) {
+                const {encuesta} = body
+                dispatch( crearEncuesta( encuesta ) )
+            }else{
+                console.log( "dispatch para el error", body )
+            }
+        }catch( error ) {
+            console.error("Error: startCreateEncuesta")
+            console.error(error)
+        }
+    }
+}
+
+
 export const startLoadEncuestas = () => {
     return async ( dispatch ) => {
         try{
@@ -22,6 +44,7 @@ export const startLoadEncuestas = () => {
         
     }
 }
+
 
 export const startShowEncuesta = ( id ) => {
     return async ( dispatch ) =>{
@@ -43,6 +66,11 @@ export const startShowEncuesta = ( id ) => {
 
 
 /// Syncronas //////////////////////////
+
+const crearEncuesta = ( encuesta ) => ({
+    type: types.encuestaCreate,
+    payload: encuesta
+})
 
 const loadEncuetas = ( lista ) => ({
     type: types.encuestaLoad,

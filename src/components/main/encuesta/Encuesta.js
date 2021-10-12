@@ -1,41 +1,53 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
+
 import { Loading } from '../../ui/Loading'
+import { Alerta } from '../../ui/Alerta'
 
 import { startShowEncuesta, ClearShowEncuesta } from '../../../actions/encuesta'
+import { startEnviarVoto, startCheckingVotoAsoc } from "../../../actions/voto";
 
-export const Encuesta = (  ) => {
+export const Encuesta = () => {
     
     const { id } = useParams()
+    
     const dispatch = useDispatch()
+
     const [ buttonDisabled, setButtonDisabled ] = useState( true )
     const [ opcionElegida, setOpcion ] = useState( '' )
-
+    
     useEffect(() => {
         dispatch( startShowEncuesta( id ) )
+        dispatch( startCheckingVotoAsoc( id ) )
         return () => {
             dispatch( ClearShowEncuesta() )
         }
     }, [dispatch, id])
 
     const { show } = useSelector( state => state.survey )
+    const { checkingVoto, loadingVoto } = useSelector(state => state.vote )
     
     if( !show ){
-        return <Loading />
+        return <div>redireccionar a 404</div>
     }
 
+    if( loadingVoto ) {
+        return <Loading />
+    }
+    
+    if( checkingVoto ) {
+        return <Alerta />
+    }
 
     const handleChange = ( e ) => {
         setButtonDisabled( false )
-        console.log( "handleChange: ", e.target.id )
         setOpcion( e.target.id )
     }
 
     const handleSubmit = ( e ) =>{
         e.preventDefault();
-        console.log( "handleSubmit: ", opcionElegida )
-        // dispatch( *algo para enviar la opcion*( opcionElegida ) )
+        dispatch(  startEnviarVoto( opcionElegida, id ) )
     }
 
     return (
@@ -65,4 +77,3 @@ export const Encuesta = (  ) => {
         </div>
     )
 }
-

@@ -13,7 +13,6 @@ export const encuestasReducer = ( state = initialState, action) => {
                 ...state,
                 ...action.payload,
             }
-    
         case types.encuestaShow:
             return{
                 ...state,
@@ -23,6 +22,13 @@ export const encuestasReducer = ( state = initialState, action) => {
             return{
                 ...state,
                 show: null
+            }
+        case types.encuestaCreate:
+            const arreglo = [ ...state.encuestas ]
+            arreglo.push( action.payload )
+            return {
+                ...state,
+                encuestas: [ ...arreglo ]
             }
         default:
             return state;

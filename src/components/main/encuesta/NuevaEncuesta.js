@@ -3,6 +3,7 @@ import Modal from 'react-modal'
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../../actions/ui";
 import { useForm } from "../../../hooks/useForm";
+import { startCreateEncuesta } from '../../../actions/encuesta'
 
 // import PropTypes from 'prop-types';
 
@@ -70,10 +71,8 @@ export const NuevaEncuesta = () => {
     ///-----------------------------------------------------
     
     const  hanldeDeleteOpcion = ( e, i ) =>{
-        // console.log("delete op: ",  )
         const itemDElete = opcionesArray[i]
         const aux = opcionesArray.filter( item => item !== itemDElete )
-        // console.log( aux )
         setOpcionesArray( aux )
         
     }
@@ -85,15 +84,13 @@ export const NuevaEncuesta = () => {
     }
 
     const isValid = ()=> {
-        return ( title === '' || descripcion === '' || opcionesArray.length === 0 )
+        return ( title === '' || descripcion === '' || opcionesArray.length <= 1 )
     }
 
     const handleSubmit = (e) =>{
         e.preventDefault();
-
         const aux = opcionesArray.toString()
-        console.log( title, descripcion, aux )
-        // dispatch( *alg oque cree encuesta*() )
+        dispatch( startCreateEncuesta( title, descripcion, aux ) )
         handleCloseModal()
     }
 
@@ -132,7 +129,7 @@ export const NuevaEncuesta = () => {
                             <input type="text" name="op" onChange={ handleOp } value={ op } className="form-control" placeholder="Agrege una opcion a la encuesta" id="statictitulo"  />
                         </div>
                         <div className="col-sm-2 m-auto">
-                            <button type="button" disabled={ op === '' ? true : false }  onClick={ handleAgrear } className="btn btn-primary" > Agregar </button>
+                            <button type="button" disabled={ op === '' }  onClick={ handleAgrear } className="btn btn-primary" > Agregar </button>
                         </div>
                     </div>
 

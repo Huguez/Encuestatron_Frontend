@@ -17,7 +17,6 @@ export const Navbar = ( props ) => {
 
     const handleClick = ( e ) => {
         history.replace( '/' )
-        localStorage.setItem( 'lastRuta', '/' )
     }
 
     return (
