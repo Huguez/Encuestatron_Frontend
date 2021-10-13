@@ -5,8 +5,11 @@ import { BrowserRouter as Router, Switch } from 'react-router-dom'
 
 import { ListEncuesta } from '../components/main/encuesta/ListEncuesta'
 import { Encuesta } from "../components/main/encuesta/Encuesta";
-// import { NuevaEncuesta } from '../components/main/encuesta/NuevaEncuesta'
+import { GraficaScreen } from '../components/main/grafica/GraficasScreen'
+
 import { PrivateRoute } from './PrivateRoute';
+import { MisEncuestas } from '../components/main/encuesta/MisEncuestas';
+import { NotFoundScreen } from '../components/404/NotFoudScreen';
 
 export const DashboardRouter = () => {
     
@@ -19,11 +22,16 @@ export const DashboardRouter = () => {
 
                     <PrivateRoute isAuthenticated={ logged } path='/show/:id/encuesta' component={ Encuesta } />
 
-                    {/* <PrivateRoute isAuthenticated={ logged } path='/create/encuesta' component={ NuevaEncuesta } /> */}
+                    <PrivateRoute isAuthenticated={ logged } path='/misEncuestas' component={ MisEncuestas } />
+
+                    <PrivateRoute isAuthenticated={ logged } path='/encuesta/:id/grafica/'  component={ GraficaScreen }  />
+                    
+                    <PrivateRoute isAuthenticated={ logged } path='/404'  component={ NotFoundScreen }  />
                     
                     <PrivateRoute isAuthenticated={ logged } path='/'  component={ ListEncuesta }  />
 
-                    {/* <Redirect to='/create/encuesta' /> */}
+
+                    {/* <Redirect to='404' /> */}
                 </Switch>
             </div>
         </Router>

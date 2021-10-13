@@ -21,6 +21,12 @@ export const votoReducer = ( state = initialState, action ) => {
                 checkingVoto: false,
                 loadingVoto: false
             }
+        case types.votoClearState:
+            return {
+                ...state,
+                checkingVoto: false,
+                loadingVoto: true
+            }
         default:
             return state
     }

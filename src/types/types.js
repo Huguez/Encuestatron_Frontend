@@ -11,6 +11,7 @@ export const types = {
     encuestaCreate:     '[survey] Crear Encuesta',
     encuestaShow:       '[survey] Mostrar Encuesta',
     encuestaUpdate:     '[survey] Actualizar Encuesta',
+    encuestaActive:     '[survey] Activar/Desactivar Encuesta',
     encuestaDelete:     '[survey] Eliminar Encuesta',
     encuestaRemoveShow: '[survey] Quitar Encuesta',
 
@@ -18,7 +19,8 @@ export const types = {
     votoUsuario:        '[vote] Obtener votos del Usuario',
     votoEncuesta:       '[vote] Obtener votos de una encuesta',
     votoAsoc:           '[vote] Obtener el voto de Usuario-encuesta',
-    votoFinishChecking: '[vote] Terminar de checar', 
+    votoFinishChecking: '[vote] Terminar de checar',
+    votoClearState:     '[vote] Limpiar Estado',
 
     uiOpenModal:        '[ui] Abrir Modal ' ,
     uiCloseModal:       '[ui] Cerrar Modal' ,

@@ -3,11 +3,40 @@ import { types } from "../types/types";
 
 /// Asyncronas /////////////////////////
 
+export const startEncuestasAct = ( id ) => {
+    return async ( dispatch, getState ) => {
+        try{
+            
+            const { encuestas } = await  getState().survey
+            const e = encuestas.filter( item => item.id === id )
+            let data = { ...e[0] }
+            data["activo"] = !data["activo"]
+            
+            const resp = await fetchToken( `v1/encuesta/${ id }`, data, 'PUT' );
+            const body = await resp.json();
+            
+            if ( body.ok ) {
+                const { encuesta } = body
+                
+                dispatch( ( activarEncuesta( encuesta ) ) )   
+
+            } else {
+                console.error( body )    
+            }
+        }catch( error ){
+            console.error( "Error: startLoadEncuestasUser" )
+            console.error( error )
+        }
+    }
+}
+
+
 export const startCreateEncuesta = ( titulo, descripcion, opciones, activo = true  ) => {
     return async ( dispatch, getState ) => {
         try {
-            const { user:{ id:id_creator } } =  await getState().auth            
-            const data = { titulo, descripcion, opciones, activo, id_creator }
+            const { user:{ id:id_user_creator } } =  await getState().auth            
+            const data = { titulo, descripcion, opciones, activo, id_user_creator }
+            
             const resp = await fetchToken( 'v1/encuesta/', data, 'POST' );
             const body = await resp.json();
             
@@ -83,6 +112,12 @@ const showEncuesta = ( encuesta ) => ({
     type: types.encuestaShow,
     payload: { ...encuesta }
 })
+
+const activarEncuesta = ( encuesta ) => ({
+    type: types.encuestaActive,
+    payload: encuesta 
+})
+
 
 export const ClearShowEncuesta = () => ({
     type: types.encuestaRemoveShow,

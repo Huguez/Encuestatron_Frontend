@@ -59,3 +59,7 @@ const ChecarVotacion = () => ({
 const finChecarVotacion = () => ({
     type: types.votoFinishChecking
 });
+
+export const limpiarStateVote = () => ({
+    type: types.votoClearState
+});

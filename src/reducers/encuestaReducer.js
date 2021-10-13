@@ -6,7 +6,7 @@ const initialState = {
 }
 
 export const encuestasReducer = ( state = initialState, action) => {
-
+    let arreglo = []
     switch ( action.type ) {
         case types.encuestaLoad:
             return {
@@ -24,7 +24,14 @@ export const encuestasReducer = ( state = initialState, action) => {
                 show: null
             }
         case types.encuestaCreate:
-            const arreglo = [ ...state.encuestas ]
+            arreglo = [ ...state.encuestas ]
+            arreglo.push( action.payload )
+            return {
+                ...state,
+                encuestas: [ ...arreglo ]
+            }
+        case types.encuestaActive:
+            arreglo = state.encuestas.filter( item => item.id !== action.payload.id )
             arreglo.push( action.payload )
             return {
                 ...state,

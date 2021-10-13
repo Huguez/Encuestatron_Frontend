@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 
 import { Loading } from '../../ui/Loading'
 import { Alerta } from '../../ui/Alerta'
 
 import { startShowEncuesta, ClearShowEncuesta } from '../../../actions/encuesta'
-import { startEnviarVoto, startCheckingVotoAsoc } from "../../../actions/voto";
+import { startEnviarVoto, startCheckingVotoAsoc, limpiarStateVote } from "../../../actions/voto";
 
 export const Encuesta = () => {
     
@@ -22,16 +22,13 @@ export const Encuesta = () => {
         dispatch( startCheckingVotoAsoc( id ) )
         return () => {
             dispatch( ClearShowEncuesta() )
+            dispatch( limpiarStateVote() )
         }
-    }, [dispatch, id])
+    }, [ dispatch, id ])
 
     const { show } = useSelector( state => state.survey )
     const { checkingVoto, loadingVoto } = useSelector(state => state.vote )
     
-    if( !show ){
-        return <div>redireccionar a 404</div>
-    }
-
     if( loadingVoto ) {
         return <Loading />
     }
@@ -39,6 +36,13 @@ export const Encuesta = () => {
     if( checkingVoto ) {
         return <Alerta />
     }
+
+    if( !show ){ 
+        console.log("entro")
+        // return <div>404</div>
+        return <Redirect to="/404" />
+    }
+
 
     const handleChange = ( e ) => {
         setButtonDisabled( false )
