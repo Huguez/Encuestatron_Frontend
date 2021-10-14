@@ -31,11 +31,10 @@ export const encuestasReducer = ( state = initialState, action) => {
                 encuestas: [ ...arreglo ]
             }
         case types.encuestaActive:
-            arreglo = state.encuestas.filter( item => item.id !== action.payload.id )
-            arreglo.push( action.payload )
+            let i = state.encuestas.findIndex( item => item.id === action.payload.id )
+            state.encuestas[i] = { ...action.payload }
             return {
                 ...state,
-                encuestas: [ ...arreglo ]
             }
         default:
             return state;

@@ -17,18 +17,27 @@ export const MisEncuestas = () => {
 
     const dispatch = useDispatch()
 
-    const encuestasUser = encuestas.filter( item => item.id !== id )
-
+    const encuestasUser = encuestas.filter( item => item.id_user_creator === id )
+    
     const handleActiveSurvey = ( id ) => {
         dispatch( startEncuestasAct( id ) )
     }
     
     return (
         <div className="row">
-            {/* <div className="col-3">
-                wawa
-            </div> */}
             <div className="col" >
+                { encuestasUser.length === 0 ?  
+                <div className="alert alert-warning w-50 m-auto" role="alert">
+                    <h4 className="alert-heading"> 
+                    <i class="bi bi-exclamation-diamond-fill mx-2"></i>
+                        ¡Espera!
+                    </h4>
+                    <hr />
+                    <p className="mb-0">
+                        Aun no haz creado ninguna encuesta
+                    </p>     
+                </div>
+                :
                 <table className="table table-bordered">
                     <thead className="table-primary">
                         <tr>
@@ -56,6 +65,7 @@ export const MisEncuestas = () => {
                         } ) }
                     </tbody>
                 </table>
+                }
             </div>
         </div>
     )

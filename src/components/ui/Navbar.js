@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { NavLink } from 'react-router-dom'
 import { startLogout } from '../../actions/auth'
 
@@ -7,6 +7,7 @@ import { startLogout } from '../../actions/auth'
 export const Navbar = ( props ) => {
 
     const dispatch = useDispatch();
+    const { user:{ name } } = useSelector(state => state.auth)
 
     const handleLogout = (e) => {
         dispatch( startLogout() )
@@ -33,7 +34,9 @@ export const Navbar = ( props ) => {
                                 Mis Encuestas
                             </NavLink>        
                         </li>
-                        
+                        <li className="nav-item mt-2">
+                            <span className="nav-link">{ name }</span>
+                        </li>
                     </ul>
                     
                     
