@@ -84,6 +84,8 @@ export const startShowEncuesta = ( id ) => {
             if( body.ok ){
                 const { encuesta:auxEncuesta } = body
                 dispatch( showEncuesta( auxEncuesta ) )    
+            }else{
+                dispatch( clearEncuestaGraph() )
             }
             
         } catch ( error ) {
@@ -118,7 +120,10 @@ const activarEncuesta = ( encuesta ) => ({
     payload: encuesta 
 })
 
-
-export const ClearShowEncuesta = () => ({
+export const clearShowEncuesta = () => ({
     type: types.encuestaRemoveShow,
+})
+
+export const clearEncuestaGraph = () =>({
+    type: types.encuestaClearGraph,
 })

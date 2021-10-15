@@ -2,7 +2,8 @@ import { types } from "../types/types";
 
 const initialState = {
     encuestas: [],
-    show: null
+    show: null,
+    loadingGraph: true,
 }
 
 export const encuestasReducer = ( state = initialState, action) => {
@@ -16,12 +17,14 @@ export const encuestasReducer = ( state = initialState, action) => {
         case types.encuestaShow:
             return{
                 ...state,
+                loadingGraph: false,
                 show: { ...action.payload }
             }
         case types.encuestaRemoveShow:
             return{
                 ...state,
-                show: null
+                loadingGraph: true,
+                show: null,
             }
         case types.encuestaCreate:
             arreglo = [ ...state.encuestas ]
@@ -35,6 +38,16 @@ export const encuestasReducer = ( state = initialState, action) => {
             state.encuestas[i] = { ...action.payload }
             return {
                 ...state,
+            }
+        case types.encuestaRemoveGraph:
+            return {
+                ...state,
+                loadingGraph: true,
+            }
+        case types.encuestaClearGraph:
+            return {
+                ...state,
+                loadingGraph: false,
             }
         default:
             return state;

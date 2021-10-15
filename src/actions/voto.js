@@ -3,6 +3,30 @@ import { types } from "../types/types";
 
 // Asyncronas ///////////////////////////////////////////
 
+export const startLoadVotes = ( id_encuesta ) => {
+    return async ( dispatch ) => {
+        try {
+
+            const endpoint = `v1/voto/${ id_encuesta }/encuesta/`
+
+            const resp =  await fetchToken( endpoint )
+            const body =  await  resp.json()
+
+            if ( body.ok ) {
+                const { votos } = body
+                dispatch( cargarVotos( votos ) )
+            } else {
+                console.log( body )
+            }
+
+        } catch ( error ) {
+            console.error("Error: startLoadVote")
+            console.error("Error: startLoadVote")
+        }
+    }
+}
+
+
 export const startCheckingVotoAsoc = ( id_encuesta )=>{
     return async ( dispatch, getState ) => {
         try {
@@ -63,3 +87,8 @@ const finChecarVotacion = () => ({
 export const limpiarStateVote = () => ({
     type: types.votoClearState
 });
+
+const cargarVotos = ( votos ) => ({
+    type: types.votoLoad,
+    payload: [ ...votos ]
+})

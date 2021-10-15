@@ -2,11 +2,17 @@ import { types } from "../types/types";
 
 const initialState = {
     checkingVoto: false,
-    loadingVoto: true
+    loadingVoto: true,
+    votos: [],
 }
 
 export const votoReducer = ( state = initialState, action ) => {
     switch ( action.type ) {
+        case types.votoLoad:
+            return {
+                ...state,
+                votos: [ ...action.payload ]
+            }
         case types.votoAsoc:
         case types.votoEnviarOpcion:
             return {

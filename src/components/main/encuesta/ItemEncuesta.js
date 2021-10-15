@@ -13,7 +13,6 @@ export const ItemEncuesta = ( { encuesta:{ id, titulo, descripcion, activo } } )
         if( activo ){
             history.replace( `/show/${ id }/encuesta/` )
         }else{
-            console.log("Grafica")
             history.replace( `/encuesta/${ id }/grafica/` )
         }
     }
