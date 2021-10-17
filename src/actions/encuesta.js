@@ -3,6 +3,24 @@ import { types } from "../types/types";
 
 /// Asyncronas /////////////////////////
 
+export const startDeleteEncuesta = ( id ) =>{
+    return async ( dispatch ) => {
+        try {
+            const resp = await fetchToken( `v1/encuesta/${ id }`, {}, 'DELETE' )
+            const body = await resp.json()
+            
+            if ( body.ok ) {
+                dispatch( borrarEncuesta( id ) )
+            }else{
+                console.log( body )
+            }
+        } catch (error) {
+            console.error( "Error: startDeleteEncuesta" )
+            console.error( error )
+        }
+    }
+}
+
 export const startEncuestasAct = ( id ) => {
     return async ( dispatch, getState ) => {
         try{
@@ -30,7 +48,6 @@ export const startEncuestasAct = ( id ) => {
     }
 }
 
-
 export const startCreateEncuesta = ( titulo, descripcion, opciones, activo = true, id_encuesta_prev = null, segunda_ronda = false ) => {
     return async ( dispatch, getState ) => {
         try {
@@ -53,7 +70,6 @@ export const startCreateEncuesta = ( titulo, descripcion, opciones, activo = tru
     }
 }
 
-
 export const startLoadEncuestas = () => {
     return async ( dispatch ) => {
         try{
@@ -73,7 +89,6 @@ export const startLoadEncuestas = () => {
         
     }
 }
-
 
 export const startShowEncuesta = ( id ) => {
     return async ( dispatch ) =>{
@@ -97,6 +112,11 @@ export const startShowEncuesta = ( id ) => {
 
 
 /// Syncronas //////////////////////////
+
+const borrarEncuesta = ( id ) => ({
+    type: types.encuestaDelete,
+    payload: { id }
+})
 
 const crearEncuesta = ( encuesta ) => ({
     type: types.encuestaCreate,

@@ -49,6 +49,11 @@ export const encuestasReducer = ( state = initialState, action) => {
                 ...state,
                 loadingGraph: false,
             }
+        case types.encuestaDelete:
+            return {
+                ...state,
+                encuestas: [ ...state.encuestas.filter( item => item.id !== action.payload.id )  ]
+            }
         default:
             return state;
     }

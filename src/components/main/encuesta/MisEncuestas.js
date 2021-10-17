@@ -2,7 +2,7 @@ import React from 'react'
 import { useHistory } from 'react-router'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { startShowEncuesta, startEncuestasAct } from '../../../actions/encuesta'
+import { startDeleteEncuesta, startShowEncuesta, startEncuestasAct } from '../../../actions/encuesta'
 import { openModal } from '../../../actions/ui'
 
 
@@ -36,6 +36,10 @@ export const MisEncuestas = () => {
     const handleCrearSegundaRonda = ( id ) => {
         dispatch( startShowEncuesta( id ) )
         dispatch( openModal() )
+    }
+
+    const handleDeleteEncuesta = ( item ) => {
+        dispatch( startDeleteEncuesta( item.id ) )
     }
 
     if ( encuestasUser.length === 0 ) {
@@ -93,7 +97,7 @@ export const MisEncuestas = () => {
                                     <td className="text-center"  >
                                         { !item.segunda_ronda && <button onClick={ (e) => handleCrearSegundaRonda( item.id ) }  disabled={ item.activo  } className="btn btn-secondary p-1 mx-1"> Segunda Ronda </button> }
                                         
-                                        <button className="btn btn-danger  mx-1">
+                                        <button className="btn btn-danger  mx-1" onClick={ (e) => handleDeleteEncuesta( item ) }>
                                             <i className="bi bi-trash-fill"></i>
                                         </button>
 
