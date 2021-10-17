@@ -31,17 +31,17 @@ export const startEncuestasAct = ( id ) => {
 }
 
 
-export const startCreateEncuesta = ( titulo, descripcion, opciones, activo = true  ) => {
+export const startCreateEncuesta = ( titulo, descripcion, opciones, activo = true, id_encuesta_prev = null, segunda_ronda = false ) => {
     return async ( dispatch, getState ) => {
         try {
             const { user:{ id:id_user_creator } } =  await getState().auth            
-            const data = { titulo, descripcion, opciones, activo, id_user_creator }
+            const data = { titulo, descripcion, opciones, activo, id_user_creator, id_encuesta_prev, segunda_ronda }
             
             const resp = await fetchToken( 'v1/encuesta/', data, 'POST' );
             const body = await resp.json();
             
             if ( body.ok ) {
-                const {encuesta} = body
+                const { encuesta } = body
                 dispatch( crearEncuesta( encuesta ) )
             }else{
                 console.log( "dispatch para el error", body )

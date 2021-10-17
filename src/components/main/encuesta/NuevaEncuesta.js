@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from 'react-modal'
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../../actions/ui";
-import { useForm } from "../../../hooks/useForm";
-import { startCreateEncuesta } from '../../../actions/encuesta'
-
-// import PropTypes from 'prop-types';
+import { clearShowEncuesta, startCreateEncuesta } from '../../../actions/encuesta'
 
 
 const customStyles = {
@@ -25,26 +22,49 @@ if( process.env.NODE_ENV !== 'test' ){
     Modal.setAppElement('#root');
 }
 
+const initialSurvey = {
+    title: '',
+    descripcion: '',
+}
 export const NuevaEncuesta = () => {
 
     const dispatch = useDispatch()
     const { openModal } = useSelector( state => state.ui )
-    const [ formValues, setFormValues, reset ] = useForm( {
-        title: '',
-        descripcion: '',
-    } )
+    const { show } = useSelector( state => state.survey )
+
+    const [ formValues, setFormValues ] = useState( initialSurvey )
     const { title, descripcion } = formValues
 
     ///-----------------------------------------------------
     const [ opcionesArray, setOpcionesArray ] = useState( [] )
     const [ opciones, setOpciones ] = useState( { op: '' } )
     const { op } = opciones;
-    
+
+    useEffect(() => {
+        
+        if( show ) {
+            setFormValues( { title: show.titulo, descripcion: show.descripcion } )
+            setOpcionesArray( show.opciones )
+        }else{
+            setFormValues( initialSurvey )
+            setOpcionesArray( [] )
+        }
+
+    }, [ show, setFormValues, setOpcionesArray ] )
+
+
+    const handleInputChange = ( { target } ) => {
+        setFormValues( {
+            ...formValues,
+            [target.name]: target.value
+        } )
+    }
+
     const handleAgrear = ( e ) => {
         
         if( opcionesArray.length > 0 ){
             let flag = false
-            for (let i = 0; i < opcionesArray.length; i++) {
+            for( let i = 0; i < opcionesArray.length; i++ ){
                 const element = opcionesArray[i];
                 if ( element === op ) {
                     flag = true
@@ -79,22 +99,26 @@ export const NuevaEncuesta = () => {
 
     const handleCloseModal = () => {
         setOpcionesArray([])
-        reset()
+        setFormValues(initialSurvey)
+        if ( show ) {
+            dispatch( clearShowEncuesta() )
+        }
         dispatch( closeModal() )
     }
 
-    const isValid = ()=> {
-        return ( title === '' || descripcion === '' || opcionesArray.length <= 1 )
-    }
-
+    const isValid = () => ( title === '' || descripcion === '' || opcionesArray.length <= 1 )
+    
     const handleSubmit = (e) =>{
         e.preventDefault();
         const aux = opcionesArray.toString()
-        dispatch( startCreateEncuesta( title, descripcion, aux ) )
+        if( show ){
+            dispatch( startCreateEncuesta( title, descripcion, aux, true, show.id, true ) )
+        }else{
+            dispatch( startCreateEncuesta( title, descripcion, aux  ) )
+        }
         handleCloseModal()
     }
 
-    
     return (
         <Modal
             isOpen={ openModal }
@@ -106,7 +130,7 @@ export const NuevaEncuesta = () => {
             <div className="m-3" style={{  maxHeight: '500px',  width: '500px' }}>
                 
                 <div className="d-flex justify-content-between">
-                    <h2> Nueva Encuesta </h2> 
+                    <h2> Nueva Encuesta { show && <span className="h6">( Segunda Ronda )</span> } </h2> 
                     <button type="button" className="btn-close" arial-label="Close" onClick={ handleCloseModal }>
                     </button>
                 </div>
@@ -114,13 +138,13 @@ export const NuevaEncuesta = () => {
                 <form onSubmit={ handleSubmit } >
                     <div className="mt-3 row">
                         <div className="col-sm-12">
-                            <input value={ title } onChange={ setFormValues } name="title" type="text" className="form-control" placeholder="Titulo de la encuesta" id="statictitulo" />
+                            <input value={ title } onChange={ handleInputChange } name="title" type="text" className="form-control" placeholder="Titulo de la encuesta" id="statictitulo" />
                         </div>
                     </div>
 
                     <div className="mt-3 row">
                         <div className="col-sm-12">
-                            <textarea  value={ descripcion } onChange={ setFormValues } name="descripcion" className="form-control" placeholder="Descripcion de la Encuesta" id="floatingTextarea"></textarea>     
+                            <textarea  value={ descripcion } onChange={ handleInputChange } name="descripcion" className="form-control" placeholder="Descripcion de la Encuesta" id="floatingTextarea"></textarea>     
                         </div>
                     </div>
                     

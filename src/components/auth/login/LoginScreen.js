@@ -43,7 +43,7 @@ export const LoginScreen = () => {
                             <input value={ loginPassword } onChange={ handleFormValues }  autoComplete="off" className="form-control mb-3" type="password"  placeholder="password" name="loginPassword"  />
                   
                             <div>
-                                <Link className="btn btn-link" to="/">Forgot password?</Link>
+                                {/* <Link className="btn btn-link" to="/">Forgot password?</Link> */}
                                 <Link className="btn btn-link" to="/auth/register"> without Account? Register </Link>
                             </div>
 
