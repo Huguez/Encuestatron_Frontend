@@ -7,8 +7,8 @@ import { startLogout } from '../../actions/auth'
 export const Navbar = ( props ) => {
 
     const dispatch = useDispatch();
-    const { user:{ name } } = useSelector(state => state.auth)
-
+    const { user:{ role } } = useSelector( state => state.auth )
+    
     const handleLogout = (e) => {
         dispatch( startLogout() )
     }
@@ -34,9 +34,13 @@ export const Navbar = ( props ) => {
                                 Mis Encuestas
                             </NavLink>        
                         </li>
-                        <li className="nav-item mt-2">
-                            <span className="nav-link">{ name }</span>
-                        </li>
+                        
+                        { role === "ADMIN" && <li className="nav-item mt-2">
+                            <NavLink activeClassName="active" className="nav-link" to="/usuarios"> 
+                                Usuarios
+                            </NavLink>
+                        </li> }
+                        
                     </ul>
                     
                     

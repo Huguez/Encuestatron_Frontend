@@ -16,7 +16,11 @@ export const types = {
     encuestaRemoveShow: '[survey] Quitar Encuesta',
     encuestaRemoveGraph:'[survey] Quitar Grafica',
     encuestaClearGraph: '[survey] Quitar Loading',
-    
+
+    usuarioLoad:        '[usuarios] Cargar Usuarios',
+    usuarioDelete:      '[usuarios] Eliminar Usuarios',
+    usuarioChangeRol:   '[usuarios] Cambiar Rol del Usuarios',
+
     votoLoad:           '[vote] Cargar votos de una encuesta',
     votoEnviarOpcion:   '[vote] Votar una opcion',
     votoUsuario:        '[vote] Obtener votos del Usuario',
