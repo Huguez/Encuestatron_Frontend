@@ -9,6 +9,7 @@ const initialState = {
 export const encuestasReducer = ( state = initialState, action) => {
     let arreglo = []
     switch ( action.type ) {
+        case types.encuestaSearch:
         case types.encuestaLoad:
             return {
                 ...state,

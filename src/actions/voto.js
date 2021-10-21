@@ -15,7 +15,7 @@ export const startLoadVotes = ( id_encuesta ) => {
             if ( body.ok ) {
                 const { votos } = body
                 dispatch( cargarVotos( votos ) )
-            } else {
+            }else {
                 console.log( body )
             }
 

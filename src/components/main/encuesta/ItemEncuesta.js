@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import PropTypes from 'prop-types';
 
 
-export const ItemEncuesta = ( { encuesta:{ id, titulo, descripcion, activo } } ) => {
+export const ItemEncuesta = ( { encuesta:{ id, titulo, descripcion, activo, segunda_ronda } } ) => {
     
     const history = useHistory()
 
@@ -16,9 +16,9 @@ export const ItemEncuesta = ( { encuesta:{ id, titulo, descripcion, activo } } )
             history.replace( `/encuesta/${ id }/grafica/` )
         }
     }
-    
+
     return (
-        <div className="m-auto w-50">
+        <div className="m-auto " style={ { maxWidth: "580px" } }>
             <div className="card  m-3 ">
                 <div className="card-body">
                     
@@ -26,12 +26,17 @@ export const ItemEncuesta = ( { encuesta:{ id, titulo, descripcion, activo } } )
 
                         <h5 className="card-title text-truncate" style={ { maxWidth: "380px"} } >
                             { titulo }
+                            
                         </h5>
+                        
+                        { segunda_ronda && <p className="  badge rounded-pill bg-secondary">
+                                Segunda Ronda
+                        </p> } 
 
                         <p className={`badge rounded-pill ${ activo ? "bg-success" : "bg-danger" }`}>
-                            { activo ? "Abierta" : "Concluida" }  
+                            { activo ? "En Proceso" : "Concluida" }  
                         </p>
-
+                        
                     </div>
                 
                     <hr/>

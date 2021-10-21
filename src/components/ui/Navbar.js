@@ -34,7 +34,7 @@ export const Navbar = ( props ) => {
                                 Mis Encuestas
                             </NavLink>        
                         </li>
-                        
+
                         { role === "ADMIN" && <li className="nav-item mt-2">
                             <NavLink activeClassName="active" className="nav-link" to="/usuarios"> 
                                 Usuarios
@@ -43,8 +43,6 @@ export const Navbar = ( props ) => {
                         
                     </ul>
                     
-                    
-
                 </div>
 
                 <div className="d-flex">    

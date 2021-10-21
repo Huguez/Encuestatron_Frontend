@@ -3,6 +3,26 @@ import { types } from "../types/types";
 
 /// Asyncronas /////////////////////////
 
+export const startSearchEncuesta = ( term ) => {
+    return async ( dispatch ) => {
+        try {
+            
+            const resp = await fetchToken( `v1/encuesta/${ term }/search` )
+            const body = await resp.json()
+            
+            if ( body.ok ) {
+                const { encuestas } = body
+                dispatch( searchEncuetas( encuestas ) )
+            }else{
+                console.log( body )
+            }
+        } catch( error ) {
+            console.error( "Error: startSearchEncuesta" )
+            console.error( error )
+        }
+    }
+}
+
 export const startDeleteEncuesta = ( id ) =>{
     return async ( dispatch ) => {
         try {
@@ -123,7 +143,15 @@ const crearEncuesta = ( encuesta ) => ({
     payload: encuesta
 })
 
-const loadEncuetas = ( lista ) => ({
+const searchEncuetas = ( lista ) => ({
+    type: types.encuestaSearch,
+    payload: {
+        encuestas: [...lista]
+    } 
+})
+
+
+export const loadEncuetas = ( lista ) => ({
     type: types.encuestaLoad,
     payload: {
         encuestas: [...lista]

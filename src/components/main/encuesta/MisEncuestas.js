@@ -42,6 +42,10 @@ export const MisEncuestas = () => {
         dispatch( startDeleteEncuesta( item.id ) )
     }
 
+    const handleUpdateEncuesta = ( { id } ) => {
+        alert( `Se actualizara la encuesta: ${ id }` )
+    }
+
     if ( encuestasUser.length === 0 ) {
         return (
             <div className="row" >
@@ -91,14 +95,18 @@ export const MisEncuestas = () => {
                                     <td className="text-center" > 
                                         <i className={ `fs-3 bi bi${  item.segunda_ronda ? "-check-circle-fill text-primary" : "-x-circle-fill text-secondary "  }` }></i>
                                     </td>
-                                    <td className="text-center" onClick={ (e) => handleActiveSurvey( item.id ) } >
+                                    <td className="text-center" onClick={ ( e ) => handleActiveSurvey( item.id ) } >
                                         <i className={ `fs-3 bi bi-toggle-${ item.activo ? "on link-success": "off link-danger " }` }></i>
                                     </td>
                                     <td className="text-center"  >
-                                        { !item.segunda_ronda && <button onClick={ (e) => handleCrearSegundaRonda( item.id ) }  disabled={ item.activo  } className="btn btn-secondary p-1 mx-1"> Segunda Ronda </button> }
+                                        { !item.segunda_ronda && <button onClick={ ( e ) => handleCrearSegundaRonda( item.id ) }  disabled={ item.activo  } className="btn btn-secondary p-1 mx-1"> Segunda Ronda </button> }
                                         
-                                        <button className="btn btn-danger  mx-1" onClick={ (e) => handleDeleteEncuesta( item ) }>
+                                        <button className="btn btn-danger  mx-1" onClick={ ( e ) => handleDeleteEncuesta( item ) }>
                                             <i className="bi bi-trash-fill"></i>
+                                        </button>
+
+                                        <button className="btn btn-info  mx-1" onClick={ ( e ) => handleUpdateEncuesta( item ) }>
+                                            <i className="bi bi-arrow-repeat"></i>
                                         </button>
 
                                     </td>

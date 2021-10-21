@@ -25,39 +25,36 @@ export const Grafica = () => {
     const { votos:v } = useSelector( state => state.vote )
 
     const { etiquetas, dato, colores } = prepareVotes( v )
-    
-    if ( v.length === 0 ) {
+    const { loadingGraph } = useSelector( state => state.survey )
+
+    if ( loadingGraph ) {
         return <Loading />
     }
 
     const data = {
         labels: [ ...etiquetas ],
         datasets: [
-          {
-            label: '# of Votes',
-            data: [ ...dato ],
-            backgroundColor: [ ...colores ],
-            borderColor: [ ...colores ],
-            borderWidth: 2,
-          },
-        ],
-      };
-
-
-        
-    const options = {
-        scales: {
-        yAxes: [
             {
-            ticks: {
-                beginAtZero: true,
-            },
+                label: '# of Votes',
+                data: [ ...dato ],
+                backgroundColor: [ ...colores ],
+                borderColor: [ ...colores ],
+                borderWidth: 2,
             },
         ],
-        },
     };
 
-
+    const options = {
+        scales: {
+            yAxes: [
+                {
+                    ticks: {
+                        beginAtZero: true,
+                    },
+                },
+            ],
+        },
+    };
 
     return (
         <div>
