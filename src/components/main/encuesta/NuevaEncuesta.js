@@ -7,7 +7,7 @@ import { clearShowEncuesta, startCreateEncuesta } from '../../../actions/encuest
 
 const customStyles = {
   content: {
-    top: '50%',
+    top: '45%',
     left: '50%',
     right: 'auto',
     bottom: 'auto',
@@ -34,24 +34,34 @@ export const NuevaEncuesta = () => {
 
     const [ formValues, setFormValues ] = useState( initialSurvey )
     const { title, descripcion } = formValues
-
-    ///-----------------------------------------------------
+    
+    ///------------------------------------------------------------
     const [ opcionesArray, setOpcionesArray ] = useState( [] )
     const [ opciones, setOpciones ] = useState( { op: '' } )
     const { op } = opciones;
+
+    ///------------------------------------------------------------
+    const [ { radio }, setRadioOption ] = useState( { radio: '' } )
 
     useEffect(() => {
         
         if( show ) {
             setFormValues( { title: show.titulo, descripcion: show.descripcion } )
             setOpcionesArray( show.opciones )
+            setRadioOption( { radio: show.abierta ? 'abierta' : 'cerrada' } )
         }else{
             setFormValues( initialSurvey )
             setOpcionesArray( [] )
+            setRadioOption( { radio: '' } )
         }
 
     }, [ show, setFormValues, setOpcionesArray ] )
 
+    const handleRadio = ( { target } ) => {
+        setRadioOption( {
+            radio: target.id
+        } )
+    }
 
     const handleInputChange = ( { target } ) => {
         setFormValues( {
@@ -106,15 +116,15 @@ export const NuevaEncuesta = () => {
         dispatch( closeModal() )
     }
 
-    const isValid = () => ( title === '' || descripcion === '' || opcionesArray.length <= 1 )
+    const isValid = () => ( ( title === '' || descripcion === '' || opcionesArray.length <= 1 ) && radio === 'cerrada' )
     
     const handleSubmit = (e) =>{
         e.preventDefault();
         const aux = opcionesArray.toString()
         if( show ){
-            dispatch( startCreateEncuesta( title, descripcion, aux, true, show.id, true ) )
+            dispatch( startCreateEncuesta( title, descripcion, aux, radio, true, show.id, true ) )
         }else{
-            dispatch( startCreateEncuesta( title, descripcion, aux  ) )
+            dispatch( startCreateEncuesta( title, descripcion, aux, radio ) )
         }
         handleCloseModal()
     }
@@ -127,7 +137,7 @@ export const NuevaEncuesta = () => {
             style={customStyles}
             contentLabel="New Survey Modal"
         >
-            <div className="m-3" style={{  maxHeight: '500px',  width: '500px' }}>
+            <div className="m-3 z-1 " style={{  maxHeight: '500px',  width: '500px' }}>
                 
                 <div className="d-flex justify-content-between">
                     <h2> Nueva Encuesta { show && <span className="h6">( Segunda Ronda )</span> } </h2> 
@@ -145,6 +155,21 @@ export const NuevaEncuesta = () => {
                     <div className="mt-3 row">
                         <div className="col-sm-12">
                             <textarea  value={ descripcion } onChange={ handleInputChange } name="descripcion" className="form-control" placeholder="Descripcion de la Encuesta" id="floatingTextarea"></textarea>     
+                        </div>
+                    </div>
+
+                    <div className="mt-3 row">
+                        <div className="col-5">
+                            <input value={ radio } onChange={ handleRadio }  name="radioOption" className="form-check-input mx-2" type="radio"  id="abierta" />
+                            <label className="form-label" htmlFor="abierta">
+                                Abierta
+                            </label>
+                        </div>
+                        <div className="col-5">
+                            <input value={ radio } onChange={ handleRadio } className="form-check-input mx-2" type="radio" name="radioOption" id="cerrada"  checked/>
+                            <label className="form-label" htmlFor="cerrada">
+                                Cerrada
+                            </label>
                         </div>
                     </div>
                     

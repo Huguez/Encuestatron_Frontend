@@ -74,8 +74,9 @@ export const MisEncuestas = () => {
                             <th className="text-center" scope="col">#</th>
                             <th className="text-center" scope="col">Titulo</th>
                             <th className="text-center" scope="col">Descripcion</th>
-                            <th className="text-center" scope="col">Fecha de creacion</th>
-                            <th className="text-center" scope="col">Segunda Ronda</th>
+                            <th className="text-center" scope="col">Creacion</th>
+                            <th className="text-center" scope="col">2da Ronda</th>
+                            <th className="text-center" scope="col">Abierta</th>
                             <th className="text-center" scope="col">Activo</th>
                             <th className="text-center" scope="col">Acciones</th>
                         </tr>
@@ -93,7 +94,10 @@ export const MisEncuestas = () => {
                                     <td className="text-center" > { item.descripcion } </td>
                                     <td className="text-center" > {  moment( item.created_at ).format( 'D/M/YYYY' ) } </td>
                                     <td className="text-center" > 
-                                        <i className={ `fs-3 bi bi${  item.segunda_ronda ? "-check-circle-fill text-primary" : "-x-circle-fill text-secondary "  }` }></i>
+                                        <i className={ `fs-3 bi bi${  item.segunda_ronda ? "-check-lg text-primary" : "-x-lg text-secondary "  }` }></i>
+                                    </td>
+                                    <td className="text-center">
+                                        { item.abierta && <i className="fs-3 bi bi-check-lg text-primary"></i> }  
                                     </td>
                                     <td className="text-center" onClick={ ( e ) => handleActiveSurvey( item.id ) } >
                                         <i className={ `fs-3 bi bi-toggle-${ item.activo ? "on link-success": "off link-danger " }` }></i>
@@ -105,7 +109,7 @@ export const MisEncuestas = () => {
                                             <i className="bi bi-trash-fill"></i>
                                         </button>
 
-                                        <button className="btn btn-info  mx-1" onClick={ ( e ) => handleUpdateEncuesta( item ) }>
+                                        <button disabled={ !item.activo  } className="btn btn-info  mx-1" onClick={ ( e ) => handleUpdateEncuesta( item ) }>
                                             <i className="bi bi-arrow-repeat"></i>
                                         </button>
 

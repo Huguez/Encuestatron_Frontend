@@ -68,11 +68,11 @@ export const startEncuestasAct = ( id ) => {
     }
 }
 
-export const startCreateEncuesta = ( titulo, descripcion, opciones, activo = true, id_encuesta_prev = null, segunda_ronda = false ) => {
+export const startCreateEncuesta = ( titulo, descripcion, opciones, abierta, activo = true, id_encuesta_prev = null, segunda_ronda = false ) => {
     return async ( dispatch, getState ) => {
         try {
             const { user:{ id:id_user_creator } } =  await getState().auth            
-            const data = { titulo, descripcion, opciones, activo, id_user_creator, id_encuesta_prev, segunda_ronda }
+            const data = { titulo, descripcion, opciones, abierta, activo, id_user_creator, id_encuesta_prev, segunda_ronda,  }
             
             const resp = await fetchToken( 'v1/encuesta/', data, 'POST' );
             const body = await resp.json();

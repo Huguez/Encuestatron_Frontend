@@ -14,6 +14,7 @@ export const Encuesta = () => {
     
     const dispatch = useDispatch()
 
+    const [ abierta, setAbierta ] = useState( '' )
     const [ buttonDisabled, setButtonDisabled ] = useState( true )
     const [ opcionElegida, setOpcion ] = useState( '' )
     
@@ -49,9 +50,29 @@ export const Encuesta = () => {
 
     const handleSubmit = ( e ) =>{
         e.preventDefault();
-        dispatch(  startEnviarVoto( opcionElegida, id ) )
+        dispatch( startEnviarVoto( show.abierta ? abierta : opcionElegida , id ) )
     }
 
+    const handleAbierta = ( { target:{ value } } ) => {
+        setAbierta( value )
+        setButtonDisabled( !(value !== '') )
+    }
+
+    let body;
+    if( show.abierta ){
+        body = <input onChange={ handleAbierta } value={ abierta }  name="abierta" type="text" className="form-control" id="inputAbierta" placeholder="Proponer una opción"  autoComplete="off"  autoCorrect="off" />
+    }else{
+        body = show.opciones.map( (op, index) => {
+            return(
+                <div key={ index } className="form-check">
+                    <input className="form-check-input" type="radio" name="flexRadioDefault" id={ op } onChange={ handleChange } />
+                    <label className="form-check-label" htmlFor="flexRadioDefault1">
+                        { op }
+                    </label>
+                </div>
+            )
+        } )
+    }
     return (
         <div className=" m-auto border p-4" style={{ width: "65%" }} >
             <form  onSubmit={ handleSubmit } >            
@@ -59,17 +80,7 @@ export const Encuesta = () => {
                     { show.titulo }
                 </h2>
                 <p> { show.descripcion } </p>
-                { show.opciones.map( (op, index) => {
-                    return(
-                        <div key={ index } className="form-check">
-                            <input className="form-check-input" type="radio" name="flexRadioDefault" id={ op } onChange={ handleChange } />
-                            <label className="form-check-label" htmlFor="flexRadioDefault1">
-                                { op }
-                            </label>
-                        </div>
-                    )
-                } ) }
-
+                { body }
                 <div className="d-grid mt-3 gap-2 d-md-flex justify-content-md-end">    
                     <button type="submit" disabled={ buttonDisabled } className="btn btn-primary"> 
                         Votar

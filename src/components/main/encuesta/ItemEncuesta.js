@@ -18,25 +18,26 @@ export const ItemEncuesta = ( { encuesta:{ id, titulo, descripcion, activo, segu
     }
 
     return (
-        <div className="m-auto " style={ { maxWidth: "580px" } }>
-            <div className="card  m-3 ">
+        <div className="m-auto " style={ { maxWidth: "100%" } }>
+            <div className="card">
                 <div className="card-body">
                     
                     <div className="d-flex justify-content-between">
+                        <div className="col-7">
+                            <h5 className="card-title text-truncate" style={ { maxWidth: "380px"} } >
+                                { titulo }
+                                
+                            </h5>
+                        </div>
+                        <div className="col text-end ">
+                            { segunda_ronda && <p className=" badge rounded-pill bg-secondary">
+                                    Segunda Ronda
+                            </p> } 
 
-                        <h5 className="card-title text-truncate" style={ { maxWidth: "380px"} } >
-                            { titulo }
-                            
-                        </h5>
-                        
-                        { segunda_ronda && <p className="  badge rounded-pill bg-secondary">
-                                Segunda Ronda
-                        </p> } 
-
-                        <p className={`badge rounded-pill ${ activo ? "bg-success" : "bg-danger" }`}>
-                            { activo ? "En Proceso" : "Concluida" }  
-                        </p>
-                        
+                            <p className={`badge rounded-pill ${ activo ? "bg-success" : "bg-danger" }`}>
+                                { activo ? "En Proceso" : "Concluida" }  
+                            </p>
+                        </div>
                     </div>
                 
                     <hr/>
