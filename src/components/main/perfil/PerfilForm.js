@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { startUpdateUsuario } from '../../../actions/usuario';
-
+import Swal from 'sweetalert2'
 
 import { useForm } from '../../../hooks/useForm'
 
@@ -22,10 +22,21 @@ export const PerfilForm = () => {
     const handleSubmit = ( e ) => {
         e.preventDefault();
         if ( password !== password2 ) {
-            alert("aqui va una alerta chila, la contrasena es diferente")
+            Swal.fire( 'Error', 'Las contraseñas no coinciden', 'error' )
             return
         }
-        dispatch( startUpdateUsuario( { name: nombre, email, password } ) )
+
+        Swal.fire( { 
+            icon: 'warning',
+            title: `¿Seguro que deseas Actualizar su Perfil?`,
+            showCancelButton: true,
+            confirmButtonText: `Aceptar`,
+        } ).then( ( result ) => {
+            if ( result.isConfirmed ) {
+                dispatch( startUpdateUsuario( { name: nombre, email, password } ) )
+            }
+        } )
+        
     }
 
     return (

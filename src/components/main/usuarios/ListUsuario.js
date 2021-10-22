@@ -2,6 +2,8 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 
+import Swal from 'sweetalert2'
+
 import { startChangeRoleUsuario, startDeleteUsuario } from '../../../actions/usuario'
 
 export const ListUsuario = () => {
@@ -13,11 +15,29 @@ export const ListUsuario = () => {
     let listaUsuarios = [ ...list.filter( item =>  item.id !== id )  ]
 
     const handleDelete = ( id ) => {
-        dispatch( startDeleteUsuario( id ) )
+        Swal.fire( { 
+            icon: 'warning',
+            title: '¿Seguro que deseas eliminar este usuario?',
+            showCancelButton: true,
+            confirmButtonText: 'Eliminar',
+        } ).then( ( result ) => {
+            if( result.isConfirmed ){
+                dispatch( startDeleteUsuario( id ) )
+            }
+        } )
     }
 
     const handleRole = ( item ) => {
-        dispatch( startChangeRoleUsuario ( item ) )
+        Swal.fire( { 
+            icon: 'info',
+            title: '¿Seguro que deseas Cambiar el Rol del usuario?',
+            showCancelButton: true,
+            confirmButtonText: 'Cambiar'
+        } ).then( ( result ) => {
+            if( result.isConfirmed ){
+                dispatch( startChangeRoleUsuario ( item ) )
+            }
+        } )
     }
 
     return (

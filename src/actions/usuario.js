@@ -2,6 +2,9 @@ import { types } from "../types/types";
 import { fetchToken } from '../helpers/fetch'
 import { login } from "./auth";
 
+import Swal from 'sweetalert2'
+
+
 /// Asyncronas /////////////////////////////////
 
 export const startUpdateUsuario = ( usuario ) => {
@@ -15,7 +18,8 @@ export const startUpdateUsuario = ( usuario ) => {
                 const { usuario } = body
 
                 dispatch( login( usuario ) )
-                
+                Swal.fire('Eliminado!', '', 'success')
+
             }else{
                 console.log( body )
             }
@@ -39,6 +43,7 @@ export const startChangeRoleUsuario = ( usuario ) => {
                 const { usuario } = body
                 
                 dispatch( cambiarRolUsuario( usuario ) )
+                Swal.fire('Rol Cambiado', '', 'success')
             } else {
                 console.log( body )
             }
@@ -60,6 +65,7 @@ export const startDeleteUsuario = ( id ) => {
                 const { user:{ id } } = body
 
                 dispatch( borrarUsuario( id ) )
+                Swal.fire('Usuario Eliminado', '', 'success')
             }else{
                 console.log( body )
             }

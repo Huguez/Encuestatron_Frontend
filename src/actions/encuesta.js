@@ -1,3 +1,5 @@
+import Swal from 'sweetalert2'
+
 import { fetchToken } from "../helpers/fetch"
 import { types } from "../types/types";
 
@@ -31,6 +33,7 @@ export const startDeleteEncuesta = ( id ) =>{
             
             if ( body.ok ) {
                 dispatch( borrarEncuesta( id ) )
+                Swal.fire('Encuesta Eliminada', '', 'success')
             }else{
                 console.log( body )
             }
@@ -56,8 +59,7 @@ export const startEncuestasAct = ( id ) => {
             if ( body.ok ) {
                 const { encuesta } = body
                 
-                dispatch( ( activarEncuesta( encuesta ) ) )   
-
+                dispatch( ( activarEncuesta( encuesta ) ) )
             } else {
                 console.error( body )    
             }

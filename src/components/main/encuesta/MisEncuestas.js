@@ -2,6 +2,8 @@ import React from 'react'
 import { useHistory } from 'react-router'
 import { useSelector, useDispatch } from 'react-redux'
 
+import Swal from 'sweetalert2'
+
 import { startDeleteEncuesta, startShowEncuesta, startEncuestasAct } from '../../../actions/encuesta'
 import { openModal } from '../../../actions/ui'
 
@@ -21,8 +23,18 @@ export const MisEncuestas = () => {
 
     const encuestasUser = encuestas.filter( item => item.id_user_creator === id )
     
-    const handleActiveSurvey = ( id ) => {
-        dispatch( startEncuestasAct( id ) )
+    const handleActiveSurvey = ( item ) => {
+        Swal.fire( { 
+            icon: 'warning',
+            title: `¿Seguro que deseas ${ item.activo ? "desactivar" : "activar" } esta Encuesta?`,
+            showCancelButton: true,
+            confirmButtonText: `${ item.activo ? "Desactivar" : "Activar" }`,
+        } ).then( ( result ) => {
+            if ( result.isConfirmed ) {
+                dispatch( startEncuestasAct( item.id ) )
+            }
+        } )
+
     }
 
     const handleClickRoute = ( item ) => {
@@ -39,7 +51,16 @@ export const MisEncuestas = () => {
     }
 
     const handleDeleteEncuesta = ( item ) => {
-        dispatch( startDeleteEncuesta( item.id ) )
+        Swal.fire( { 
+            icon: 'warning',
+            title: '¿Seguro que deseas eliminar esta Encuesta?',
+            showCancelButton: true,
+            confirmButtonText: 'Eliminar',
+        } ).then( ( result ) => {
+            if( result.isConfirmed ){
+                dispatch( startDeleteEncuesta( item.id ) )
+            }
+        } )
     }
 
     const handleUpdateEncuesta = ( { id } ) => {
@@ -99,7 +120,7 @@ export const MisEncuestas = () => {
                                     <td className="text-center">
                                         { item.abierta && <i className="fs-3 bi bi-check-lg text-primary"></i> }  
                                     </td>
-                                    <td className="text-center" onClick={ ( e ) => handleActiveSurvey( item.id ) } >
+                                    <td className="text-center" onClick={ ( e ) => handleActiveSurvey( item ) } >
                                         <i className={ `fs-3 bi bi-toggle-${ item.activo ? "on link-success": "off link-danger " }` }></i>
                                     </td>
                                     <td className="text-center"  >
