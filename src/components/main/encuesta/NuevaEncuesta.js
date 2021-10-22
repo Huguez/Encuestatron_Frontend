@@ -52,7 +52,7 @@ export const NuevaEncuesta = () => {
         }else{
             setFormValues( initialSurvey )
             setOpcionesArray( [] )
-            setRadioOption( { radio: '' } )
+            setRadioOption( { radio: 'cerrada' } )
         }
 
     }, [ show, setFormValues, setOpcionesArray ] )
@@ -61,6 +61,7 @@ export const NuevaEncuesta = () => {
         setRadioOption( {
             radio: target.id
         } )
+        console.log( radio )
     }
 
     const handleInputChange = ( { target } ) => {
@@ -116,7 +117,9 @@ export const NuevaEncuesta = () => {
         dispatch( closeModal() )
     }
 
-    const isValid = () => ( ( title === '' || descripcion === '' || opcionesArray.length <= 1 ) && radio === 'cerrada' )
+    const isValid = () => ( 
+        ( radio === 'cerrada' && ( title === '' || descripcion === '' || opcionesArray.length <= 1 ) )  || 
+        ( radio === 'abierta' && ( title === '' || descripcion === '' ) ) )
     
     const handleSubmit = (e) =>{
         e.preventDefault();
@@ -166,7 +169,7 @@ export const NuevaEncuesta = () => {
                             </label>
                         </div>
                         <div className="col-5">
-                            <input value={ radio } onChange={ handleRadio } className="form-check-input mx-2" type="radio" name="radioOption" id="cerrada"  checked/>
+                            <input value={ radio } onChange={ handleRadio } className="form-check-input mx-2" type="radio" name="radioOption" id="cerrada" />
                             <label className="form-label" htmlFor="cerrada">
                                 Cerrada
                             </label>
