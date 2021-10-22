@@ -66,7 +66,7 @@ export const FilterForm = ( { columnas, setColumnas, ordenar, setOrdenar, search
 
             <div className="search mt-4" style={{ maxWidth: '70%' }}>
                 <div className="input-group">
-                    <input onChange={ handleInput } onKeyDown={ () => {} } onKeyUp={ handleSearch } value={ search } name="search" type="text" className="form-control" placeholder="Buscar Encuestas" aria-label="search" aria-describedby="button" autoComplete="off" autoCorrect="off" />
+                    <input onChange={ handleInput } onKeyUp={ handleSearch } value={ search } name="search" type="text" className="form-control" placeholder="Buscar Encuestas" aria-label="search" aria-describedby="button" autoComplete="off" autoCorrect="off" />
                     <button onClick={ handleClickButton } className="btn btn-outline-success" type="button" id="button">Button</button>
                 </div>
             </div>

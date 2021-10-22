@@ -1,7 +1,9 @@
-import React from "react"
+import React, { useState } from "react"
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+
 import { useForm } from '../../../hooks/useForm'
+import { validateEmail } from "../../../helpers/validateEmail"
 
 import './LoginScreen.css'
 import { startLogin } from "../../../actions/auth"
@@ -12,14 +14,62 @@ export const LoginScreen = () => {
     const dispatch = useDispatch()
 
     const [ formValues, handleFormValues ] = useForm( {
-        loginEmail: 'carlos.huguez@gmail.com',
+        loginEmail: 'huguez@gmail.com',
         loginPassword: '051189'
     } );
     const { loginEmail, loginPassword } = formValues
 
+    const [ validForm, setValidForm ] = useState( { 
+        email: 0,
+        password: 0,
+    } );
+    const { email, password } = validForm;
+
+    const handleValid = ( { code, target } ) => {
+        if ( code === 'Tab' ) {
+            console.log( code )
+            return
+        }
+
+        let aux;
+        switch ( target.id ) {
+            case 'email':
+                aux = loginEmail !== '' && validateEmail( loginEmail ) ? 1 : 2
+                break;
+                
+            case 'password':
+                aux = loginPassword !== '' ? 1 : 2
+                break;
+                
+            default:
+                console.log("default")
+                break;
+        }
+
+        setValidForm( {
+            ...validForm,
+            [target.id]: aux
+        } )
+    }
+
+    const getClass = ( num ) => {
+        switch ( num ) {
+            case 1:
+                return 'is-valid'
+            case 2:
+                return 'is-invalid'
+            default:
+                return ''
+        }
+    }
     
     const handleLoginSubmit = ( e ) => {
         e.preventDefault();
+
+        if( loginEmail === '' || loginPassword === '' ) {
+            return;
+        }
+
         
         dispatch( startLogin( loginEmail, loginPassword ) )
     }
@@ -38,12 +88,31 @@ export const LoginScreen = () => {
 
                     <div className="m-3">
                         <form onSubmit={ handleLoginSubmit } >
-                            <input value={ loginEmail } onChange={ handleFormValues } autoComplete="off" className="form-control mb-3" type="email"  placeholder="e-mail" name="loginEmail"  />
+                            <input 
+                                id="email" 
+                                onKeyUp={ handleValid }  
+                                className={ `form-control mb-3 ${ getClass( email ) }` }  
+                                onChange={ handleFormValues } 
+                                name="loginEmail"  
+                                value={ loginEmail } 
+                                type="email"  
+                                placeholder="e-mail" 
+                                autoComplete="off" 
+                                autoCorrect="off" />
 
-                            <input value={ loginPassword } onChange={ handleFormValues }  autoComplete="off" className="form-control mb-3" type="password"  placeholder="password" name="loginPassword"  />
+                            <input 
+                                id="password" 
+                                onKeyUp={ handleValid } 
+                                className={ `form-control mb-3 ${ getClass( password ) }` } 
+                                value={ loginPassword } 
+                                onChange={ handleFormValues }  
+                                name="loginPassword"  
+                                type="password"  
+                                placeholder="password" 
+                                autoComplete="off" 
+                                autoCorrect="off" />
                   
                             <div>
-                                {/* <Link className="btn btn-link" to="/">Forgot password?</Link> */}
                                 <Link className="btn btn-link" to="/auth/register"> without Account? Register </Link>
                             </div>
 
