@@ -73,7 +73,7 @@ export const startLogout = () => {
 
 // Syncronas ///////////
 
-const login = ( user ) => ({
+export const login = ( user ) => ({
     type: types.authLogin,
     payload: { user, logged: true }
 } )

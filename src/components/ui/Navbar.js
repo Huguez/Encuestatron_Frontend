@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { startLogout } from '../../actions/auth'
 
 
@@ -53,12 +53,12 @@ export const Navbar = ( props ) => {
                             </span>
                         </button>
                         <ul className={`dropdown-menu dropdown-menu-${ false ? 'start' : 'end' }`}>
-                            <li><span className="dropdown-item" >Perfil</span></li>
-                            {/* <li><a className="dropdown-item" href="#">Usuarios</a></li> */}
+                            <li>
+                                <Link className="dropdown-item" to="/perfil"> Editar Perfil </Link>
+                            </li>
                             {/* <li><a className="dropdown-item" href="#">Something else here</a></li> */}
                             
                             <li><hr className="dropdown-divider" /></li>
-                        
                             <li><span className="dropdown-item" onClick={ handleLogout } >Logout</span></li>
                         </ul>
                     </div>

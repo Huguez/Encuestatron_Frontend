@@ -12,6 +12,7 @@ import { MisEncuestas } from '../components/main/encuesta/MisEncuestas';
 import { NotFoundScreen } from '../components/404/NotFoudScreen';
 
 import { UsuariosScreen } from '../components/main/usuarios/UsuariosScreen'
+import { PerfilScreen } from '../components/main/perfil/PerfilScreen';
 
 export const DashboardRouter = () => {
     
@@ -31,6 +32,8 @@ export const DashboardRouter = () => {
                     <PrivateRoute isAuthenticated={ logged } path='/404'  component={ NotFoundScreen }  />
                     
                     <PrivateRoute isAuthenticated={ logged && role === "ADMIN" } path='/usuarios'  component={ UsuariosScreen }  />
+
+                    <PrivateRoute isAuthenticated={ logged } path='/perfil' component={ PerfilScreen }  />
 
                     <PrivateRoute isAuthenticated={ logged } path='/'  component={ ListEncuesta }  />
 

@@ -1,7 +1,31 @@
 import { types } from "../types/types";
 import { fetchToken } from '../helpers/fetch'
+import { login } from "./auth";
 
 /// Asyncronas /////////////////////////////////
+
+export const startUpdateUsuario = ( usuario ) => {
+    return async ( dispatch, getState ) => {
+        try {
+            const { user:{ id } } = await getState().auth
+            const resp = await fetchToken( `v1/user/${ id }`, usuario, 'PUT' )
+            const body = await resp.json()
+
+            if( body.ok ){
+                const { usuario } = body
+
+                dispatch( login( usuario ) )
+                
+            }else{
+                console.log( body )
+            }
+        } catch( error ){
+            console.error( "error: sstartUpdateUsuario" )
+            console.error( error )
+        }
+    }
+}
+
 
 export const startChangeRoleUsuario = ( usuario ) => {
     return async ( dispatch ) => {
