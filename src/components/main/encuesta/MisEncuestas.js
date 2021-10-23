@@ -39,9 +39,9 @@ export const MisEncuestas = () => {
 
     const handleClickRoute = ( item ) => {
         if ( item.activo ) {
-            history.replace( `/show/${ item.id }/encuesta/` )
+            history.push( `/show/${ item.id }/encuesta/` )
         }else{
-            history.replace( `/encuesta/${ item.id }/grafica/` )
+            history.push( `/encuesta/${ item.id }/grafica/` )
         }
     }
 

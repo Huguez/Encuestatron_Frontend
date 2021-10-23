@@ -11,9 +11,9 @@ export const ItemEncuesta = ( { encuesta:{ id, titulo, descripcion, activo, segu
 
     const handleClick = () => {
         if( activo ){
-            history.replace( `/show/${ id }/encuesta/` )
+            history.push( `/show/${ id }/encuesta/` )
         }else{
-            history.replace( `/encuesta/${ id }/grafica/` )
+            history.push( `/encuesta/${ id }/grafica/` )
         }
     }
 
