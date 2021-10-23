@@ -16,10 +16,10 @@ export const RegisterScreen = () => {
     const { msgError } = useSelector( state => state.ui )
     
     const [ formValues, handleFormValues ] = useForm( {
-        registerName: 'wawa',
-        registerEmail: 'wawa@wawa.com',
-        registerPassword: '123456',
-        registerConfirmPassword: '123456',
+        registerName: '',
+        registerEmail: '',
+        registerPassword: '',
+        registerConfirmPassword: '',
         
     } );
     const { registerName, registerEmail, registerPassword, registerConfirmPassword } = formValues

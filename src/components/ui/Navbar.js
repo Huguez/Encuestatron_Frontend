@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { Link, NavLink } from 'react-router-dom'
 import { startLogout } from '../../actions/auth'
 
 
 export const Navbar = ( props ) => {
+
+    const [ dropMenu,  setDropMenu ] = useState( false )
+
 
     const dispatch = useDispatch();
     const { user:{ role } } = useSelector( state => state.auth )
@@ -13,11 +16,15 @@ export const Navbar = ( props ) => {
         dispatch( startLogout() )
     }
 
+    const handleClick = ( e ) => {
+        setDropMenu( !dropMenu )
+    }
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light shadow p-3 mb-5 bg-body rounded" >
             <div className="container-fluid">
     
-                <button className="btn navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button onClick={ handleClick } className="btn navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <i className=" h1 bi bi-caret-down-square"></i>
                 </button>
 
@@ -52,7 +59,7 @@ export const Navbar = ( props ) => {
                                 <i className="bi bi-person-circle h2 "></i>
                             </span>
                         </button>
-                        <ul className={`dropdown-menu dropdown-menu-${ false ? 'start' : 'end' }`}>
+                        <ul className={`dropdown-menu dropdown-menu-${ dropMenu ? 'start' : 'end' }`}>
                             <li>
                                 <Link className="dropdown-item" to="/perfil"> Editar Perfil </Link>
                             </li>
