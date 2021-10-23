@@ -6,17 +6,26 @@ const initialState = {
 }
 
 export const uiReducer = ( state = initialState, action ) => {
-
     switch ( action.type ) {
         case types.uiOpenModal:
             return {
                 ...state,
-                ...action.payload
+                openModal: true
             }
         case types.uiCloseModal:
             return {
                 ...state,
-                ...action.payload
+                openModal: false
+            }
+        case types.uiSetMsgError:
+            return {
+                ...state,
+                msgError: action.payload.msg
+            }
+        case types.uiCleanMsgError:
+            return {
+                ...state,
+                msgError: null
             }
         default:
             return state

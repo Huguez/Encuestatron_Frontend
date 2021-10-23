@@ -17,7 +17,7 @@ export const ListUsuario = () => {
     const handleDelete = ( id ) => {
         Swal.fire( { 
             icon: 'warning',
-            title: '¿Seguro que deseas eliminar este usuario?',
+            text: '¿Seguro que deseas eliminar este usuario?',
             showCancelButton: true,
             confirmButtonText: 'Eliminar',
         } ).then( ( result ) => {
@@ -30,7 +30,7 @@ export const ListUsuario = () => {
     const handleRole = ( item ) => {
         Swal.fire( { 
             icon: 'info',
-            title: '¿Seguro que deseas Cambiar el Rol del usuario?',
+            text: '¿Seguro que deseas Cambiar el Rol del usuario?',
             showCancelButton: true,
             confirmButtonText: 'Cambiar'
         } ).then( ( result ) => {

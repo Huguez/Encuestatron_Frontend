@@ -20,7 +20,7 @@ export const AppRouter = () => {
     const { logged,  checking } = useSelector( state => state.auth )
     
     useEffect( () => {
-        dispatch( startChecking() ) 
+        dispatch( startChecking() )
     }, [dispatch] )
     
     if( checking ){

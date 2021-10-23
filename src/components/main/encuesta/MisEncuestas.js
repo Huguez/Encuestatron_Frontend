@@ -26,7 +26,7 @@ export const MisEncuestas = () => {
     const handleActiveSurvey = ( item ) => {
         Swal.fire( { 
             icon: 'warning',
-            title: `¿Seguro que deseas ${ item.activo ? "desactivar" : "activar" } esta Encuesta?`,
+            text: `¿Seguro que deseas ${ item.activo ? "desactivar" : "activar" } esta Encuesta?`,
             showCancelButton: true,
             confirmButtonText: `${ item.activo ? "Desactivar" : "Activar" }`,
         } ).then( ( result ) => {
@@ -53,7 +53,7 @@ export const MisEncuestas = () => {
     const handleDeleteEncuesta = ( item ) => {
         Swal.fire( { 
             icon: 'warning',
-            title: '¿Seguro que deseas eliminar esta Encuesta?',
+            text: '¿Seguro que deseas eliminar esta Encuesta?',
             showCancelButton: true,
             confirmButtonText: 'Eliminar',
         } ).then( ( result ) => {

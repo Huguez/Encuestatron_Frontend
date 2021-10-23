@@ -18,7 +18,7 @@ export const startUpdateUsuario = ( usuario ) => {
                 const { usuario } = body
 
                 dispatch( login( usuario ) )
-                Swal.fire('Eliminado!', '', 'success')
+                Swal.fire( '', 'Actualizacion completa', 'success' )
 
             }else{
                 console.log( body )

@@ -1,7 +1,6 @@
-import Swal from 'sweetalert2'
-
 import { types } from "../types/types";
 import { fetchSinToken, fetchToken } from "../helpers/fetch";
+import { cleanMsgError, setMsgError,  } from './ui';
 
 // Asyncronas //////////
 
@@ -16,17 +15,14 @@ export const startLogin = ( email, password ) => {
                 localStorage.setItem( 'uidtkn', token )
                 localStorage.setItem( 'uidtkn-init-date', new Date().getTime() )
 
+                dispatch( cleanMsgError() )
                 dispatch( login( user ) )
             }else{
-                console.error("Error: startLogin")
-                Swal.fire( {
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: body.error
-                } )
+                console.error( body.error)
+                dispatch( setMsgError( body.error ) )
             }
         }catch( error ){
-            console.error("Error: startLogin")
+            console.error("catch: startLogin")
             console.error( error )
         }
     }
@@ -43,14 +39,12 @@ export const startRegister = ( name, email, password, role = "usuario" ) => {
 
                 localStorage.setItem( 'uidtkn', token )
                 localStorage.setItem( 'uidtkn-init-date', new Date().getTime() )
+
+                dispatch( cleanMsgError() )
                 dispatch( register( user ) )
             }else{
                 console.error( "Error: startRegister" )
-                Swal.fire( {
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: body.error
-                } );
+                dispatch( setMsgError( body.error ) )
             }
         }catch( error ){
             console.error( "Error: startRegister" )

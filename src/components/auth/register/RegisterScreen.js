@@ -1,6 +1,6 @@
 import React,{ useState } from "react";
 import { Link } from 'react-router-dom';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { startRegister } from "../../../actions/auth"
 
@@ -8,11 +8,13 @@ import { useForm } from "../../../hooks/useForm";
 import { validateEmail } from '../../../helpers/validateEmail';
 
 import '../login/LoginScreen.css'
+import { setMsgError } from "../../../actions/ui";
 
 export const RegisterScreen = () => {
 
     const dispatch = useDispatch()
-
+    const { msgError } = useSelector( state => state.ui )
+    
     const [ formValues, handleFormValues ] = useForm( {
         registerName: 'wawa',
         registerEmail: 'wawa@wawa.com',
@@ -81,11 +83,14 @@ export const RegisterScreen = () => {
         if( registerName === '' || 
             registerEmail  === '' || 
             registerPassword  === ''|| 
-            registerConfirmPassword === '' ||
-            registerPassword !== registerConfirmPassword ) {
+            registerConfirmPassword === '' ) {
+            dispatch( setMsgError( "Asegurese de llenar todos los campos" ) )
             return;
         }
-
+        if( registerPassword !== registerConfirmPassword ){
+            dispatch( setMsgError( "Las contraseñas no coinciden" ) )
+            return;
+        }
         dispatch( startRegister( registerName, registerEmail, registerPassword ) )
     }
 
@@ -103,7 +108,14 @@ export const RegisterScreen = () => {
 
                     <div className="m-3">
                         <form onSubmit={ handleRegisterSubmit }>
-                            
+                            { !!msgError && 
+                            <div className="form-control m-2 mb-4 alert alert-warning alert-dismissible fade show" role="alert">
+                                <i className="bi bi-exclamation-octagon-fill"></i>
+                                <strong className="mx-2"> { msgError } </strong>
+                                <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div> 
+                            }
+
                             <input 
                                 id="name" 
                                 onKeyUp={ handleValid } 

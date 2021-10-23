@@ -1,6 +1,8 @@
 import React, { useState } from "react"
 import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { setMsgError } from '../../../actions/ui'
 
 import { useForm } from '../../../hooks/useForm'
 import { validateEmail } from "../../../helpers/validateEmail"
@@ -12,9 +14,10 @@ import { startLogin } from "../../../actions/auth"
 export const LoginScreen = () => {
 
     const dispatch = useDispatch()
-
+    const { msgError } = useSelector( state => state.ui )
+    
     const [ formValues, handleFormValues ] = useForm( {
-        loginEmail: 'huguez@gmail.com',
+        loginEmail: 'carlos.huguez@gmail.com',
         loginPassword: '051189'
     } );
     const { loginEmail, loginPassword } = formValues
@@ -65,11 +68,10 @@ export const LoginScreen = () => {
     
     const handleLoginSubmit = ( e ) => {
         e.preventDefault();
-
         if( loginEmail === '' || loginPassword === '' ) {
+            dispatch( setMsgError( "Asegurese de llenar todos los campos" ) )
             return;
         }
-
         
         dispatch( startLogin( loginEmail, loginPassword ) )
     }
@@ -85,6 +87,14 @@ export const LoginScreen = () => {
                         <img className="avatar" src="https://upload.wikimedia.org/wikipedia/commons/7/73/Ruby_logo.svg" alt="Avatar"  />
                         <img className="avatar" src="https://upload.wikimedia.org/wikipedia/commons/4/47/React.svg" alt="Avatar"  />
                     </div>
+
+                    { !!msgError && 
+                        <div className="form-control m-2 mb-4 alert alert-warning alert-dismissible fade show" role="alert">
+                            <i className="bi bi-exclamation-octagon-fill"></i>
+                            <strong className="mx-2"> { msgError } </strong>
+                            <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div> 
+                    }
 
                     <div className="m-3">
                         <form onSubmit={ handleLoginSubmit } >

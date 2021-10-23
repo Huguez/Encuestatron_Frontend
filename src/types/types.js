@@ -32,4 +32,6 @@ export const types = {
 
     uiOpenModal:        '[ui] Abrir Modal ' ,
     uiCloseModal:       '[ui] Cerrar Modal' ,
+    uiSetMsgError:      '[ui] Establecer Error',
+    uiCleanMsgError:    '[ui] limpiar Error'
 }
